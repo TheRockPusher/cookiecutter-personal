@@ -140,5 +140,5 @@ cython_debug/
 #.idea/
 
 #Aider 
-.aider
+.aider*
 CONVENTIONS.md

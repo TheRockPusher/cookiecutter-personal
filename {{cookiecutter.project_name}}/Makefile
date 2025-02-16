@@ -18,6 +18,7 @@ check: ## Run code quality tools.
 {%- if cookiecutter.deptry == 'y' %}
 	@echo "🚀 Checking for obsolete dependencies: Running deptry"
 	@uv run deptry .
+{%- endif %}
 	
 
 .PHONY: test
