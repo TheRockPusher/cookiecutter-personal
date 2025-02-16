@@ -57,7 +57,7 @@ replace = "version = \"{new_version}\""
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-addopts = "-ra -s -v --durations=0 --cov={{cookiecutter.project-slug}}--cov-fail-under=50"
+addopts = "-ra -s -v --durations=0 --cov={{cookiecutter.project_slug}}--cov-fail-under=50"
 
 
 [tool.ruff]
