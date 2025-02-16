@@ -81,8 +81,8 @@ jobs:
           GITHUB_TOKEN: {% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}
         with:
           upload_url: {% raw %}${{ steps.release.outputs.upload_url }}{% endraw %}
-          asset_path: ./dist/testrepo2-{% raw %}${{ needs.bump-version.outputs.current-version }}{% endraw %}-py3-none-any.whl
-          asset_name: testrepo2-{% raw %}${{ needs.bump-version.outputs.current-version }}{% endraw %}-py3-none-any.whl
+          asset_path: ./dist/{{cookiecutter.project_slug}}-{% raw %}${{ needs.bump-version.outputs.current-version }}{% endraw %}-py3-none-any.whl
+          asset_name: {{cookiecutter.project_slug}}-{% raw %}${{ needs.bump-version.outputs.current-version }}{% endraw %}-py3-none-any.whl
           asset_content_type: application/octet-stream
 
       - name: Upload tarball asset
@@ -91,8 +91,8 @@ jobs:
           GITHUB_TOKEN: {% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}
         with:
           upload_url: {% raw %}${{ steps.release.outputs.upload_url }}{% endraw %}
-          asset_path: ./dist/testrepo2-{% raw %}${{ needs.bump-version.outputs.current-version }}{% endraw %}.tar.gz
-          asset_name: testrepo2-{% raw %}${{ needs.bump-version.outputs.current-version }}{% endraw %}.tar.gz
+          asset_path: ./dist/{{cookiecutter.project_slug}}-{% raw %}${{ needs.bump-version.outputs.current-version }}{% endraw %}.tar.gz
+          asset_name: {{cookiecutter.project_slug}}-{% raw %}${{ needs.bump-version.outputs.current-version }}{% endraw %}.tar.gz
           asset_content_type: application/gzip
 
   build-and-push-docker-image:
