@@ -70,7 +70,7 @@ jobs:
           fetch-depth: 0
 
       - name: Setup environment
-        uses: ./.github/actions/setup
+        uses: ./.github/actions/setup-python-env
       
       - name: Build distributions
         run: make build
