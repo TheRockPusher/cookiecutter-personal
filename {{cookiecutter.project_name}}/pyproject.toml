@@ -25,108 +25,61 @@ Documentation = "https://{{cookiecutter.author_github_handle}}.github.io/{{cooki
 
 [dependency-groups]
 dev = [
-    "pytest>=7.2.0",
-    "pre-commit>=2.20.0",
-    "tox-uv>=1.11.3",
+    "pytest>=8.3.4",
     {% if cookiecutter.deptry == 'y' %}"deptry>=0.22.0",{% endif %}
-    "mypy>=0.991",
-    {% if cookiecutter.codecov == 'y' %}"pytest-cov>=4.0.0",{% endif %}
-    "ruff>=0.9.2",
-    {% if cookiecutter.mkdocs == 'y' %}"mkdocs>=1.4.2",
-    "mkdocs-material>=8.5.10",
-    "mkdocstrings[python]>=0.26.1",{% endif %}
+    "ruff>=0.9.6",
+    "pytest-cov>=6.0.0",
+    "pyright>=1.1.393",
+    "bump-my-version>=0.32.1"
 ]
 
 [build-system]
 requires = ["setuptools >= 61.0"]
 build-backend = "setuptools.build_meta"
 
-{% if cookiecutter.layout == "flat" -%}
 [tool.setuptools]
 py-modules = ["{{cookiecutter.project_slug}}"]
-{%- endif %}
 
-[tool.mypy]
-files = [
-    {%- if cookiecutter.layout == "src" -%}
-    "src"
-    {%- else -%}
-    "{{cookiecutter.project_slug}}"
-    {%- endif -%}
-]
-disallow_untyped_defs = true
-disallow_any_unimported = true
-no_implicit_optional = true
-check_untyped_defs = true
-warn_return_any = true
-warn_unused_ignores = true
-show_error_codes = true
+
+[tool.bumpversion]
+current_version = "0.0.1"
+commit = true
+message = "Bump Version v{current_version} -> v{new_version}"
+tag = true
+tag_name = "v{new_version}"
+pre_commit_hooks = ["uv lock", "git add uv.lock"]
+
+[[tool.bumpversion.files]]
+filename = "pyproject.toml"
+regex = true
+search = "^version = \"{current_version}\""
+replace = "version = \"{new_version}\""
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+addopts = "-ra -s -v --durations=0 --cov=testrepo2 --cov-fail-under=50"
+
 
 [tool.ruff]
-target-version = "py39"
+target-version = "py312"
 line-length = 120
 fix = true
-
-[tool.ruff.lint]
-select = [
-    # flake8-2020
-    "YTT",
-    # flake8-bandit
-    "S",
-    # flake8-bugbear
-    "B",
-    # flake8-builtins
-    "A",
-    # flake8-comprehensions
-    "C4",
-    # flake8-debugger
-    "T10",
-    # flake8-simplify
-    "SIM",
-    # isort
-    "I",
-    # mccabe
-    "C90",
-    # pycodestyle
-    "E", "W",
-    # pyflakes
-    "F",
-    # pygrep-hooks
-    "PGH",
-    # pyupgrade
-    "UP",
-    # ruff
-    "RUF",
-    # tryceratops
-    "TRY",
-]
-ignore = [
-    # LineTooLong
-    "E501",
-    # DoNotAssignLambda
-    "E731",
+lint.select = ["All"]
+lint.ignore = [
+    "D211",
+    "D213", # docstring incompatibilities
 ]
 
 [tool.ruff.lint.per-file-ignores]
-"tests/*" = ["S101"]
-
-[tool.ruff.format]
-preview = true
-
-{% if cookiecutter.codecov == "y"-%}
-[tool.coverage.report]
-skip_empty = true
-
-[tool.coverage.run]
-branch = true
-source = [
-    {%- if cookiecutter.layout == "src" -%}
-    "src"
-    {%- else -%}
-    "{{cookiecutter.project_slug}}"
-    {%- endif -%}
+"**/tests/*" = [
+    "S101", # asserts allowed in tests...
 ]
-{% endif %}
+"**/__init__.py" = [
+    "D104"
+]
+
+[tool.pyright]
+typeCheckingMode = "standard"
+include = ["{{cookiecutter.project_slug}}"]
+pythonVersion = "3.12"
+reportMissingImports = true
