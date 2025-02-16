@@ -64,7 +64,7 @@ addopts = "-ra -s -v --durations=0 --cov=testrepo2 --cov-fail-under=50"
 target-version = "py312"
 line-length = 120
 fix = true
-lint.select = ["All"]
+lint.select = ["ALL"]
 lint.ignore = [
     "D211",
     "D213", # docstring incompatibilities
