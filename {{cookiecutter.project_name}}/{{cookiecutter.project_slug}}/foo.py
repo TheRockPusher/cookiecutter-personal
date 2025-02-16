@@ -1,3 +1,6 @@
+"""Main Entry Script."""
+
+
 def foo(bar: str) -> str:
     """Summary line.
 
