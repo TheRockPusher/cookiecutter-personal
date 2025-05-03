@@ -66,8 +66,10 @@ line-length = 120
 fix = true
 lint.select = ["ALL"]
 lint.ignore = [
+    "D203", #formatter incompatibility warning
     "D211",
     "D213", # docstring incompatibilities
+    "COM812", #formatter incompatibility warning
 ]
 
 [tool.ruff.lint.per-file-ignores]
